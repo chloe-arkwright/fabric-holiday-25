@@ -7,6 +7,10 @@ file = "config/promotedserver/servers.dat"
 file = "mods/ChainStyleWither-1.7.0.jar"
 
 [[files]]
+file = "mods/anchorteleportsystem.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/apothicspawners-0.0.1.jar"
 
 [[files]]
@@ -23,10 +27,6 @@ metafile = true
 
 [[files]]
 file = "mods/ellies-storage-options.pw.toml"
-metafile = true
-
-[[files]]
-file = "mods/extended-drawers.pw.toml"
 metafile = true
 
 [[files]]
@@ -63,6 +63,10 @@ metafile = true
 
 [[files]]
 file = "mods/placeholder-api.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/polymer.pw.toml"
 metafile = true
 
 [[files]]
