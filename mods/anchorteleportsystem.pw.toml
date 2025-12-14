@@ -1,0 +1,13 @@
+name = "Anchor Teleport System"
+filename = "AnchorTeleportSystem-1.2.1+1.21.11.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/xv3zrGuz/versions/ULXyDSp6/AnchorTeleportSystem-1.2.1%2B1.21.11.jar"
+hash-format = "sha512"
+hash = "e8760cd73fc83a424ff1f3ff47a26f446191138a53d7deba1d74f5a35d41227117c53cb02260b960b825821484f2a307ea49acce33f5208ab02f817d64249298"
+
+[update]
+[update.modrinth]
+mod-id = "xv3zrGuz"
+version = "ULXyDSp6"
