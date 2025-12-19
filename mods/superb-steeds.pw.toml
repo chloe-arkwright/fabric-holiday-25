@@ -1,0 +1,13 @@
+name = "Superb Steeds"
+filename = "superbsteeds-1.21.11-r1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/UIZkbR3j/versions/x0S40DSH/superbsteeds-1.21.11-r1.jar"
+hash-format = "sha512"
+hash = "c562fc0808aa1f467a9f074b17de825695cec94b85fb317eb4a350aeefd8418110c3fd08a04c0cf102b941aeb473425ef09bac25647acd4a93d0a5960ee11389"
+
+[update]
+[update.modrinth]
+mod-id = "UIZkbR3j"
+version = "x0S40DSH"
