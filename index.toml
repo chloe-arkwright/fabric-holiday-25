@@ -49,6 +49,10 @@ file = "mods/fabric-language-kotlin.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/frozenlib.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/grind-enchantments.pw.toml"
 metafile = true
 
@@ -94,6 +98,10 @@ metafile = true
 
 [[files]]
 file = "mods/promotedserver.pw.toml"
+metafile = true
+
+[[files]]
+file = "mods/simple-copper-pipes.pw.toml"
 metafile = true
 
 [[files]]
