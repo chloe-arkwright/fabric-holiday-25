@@ -16,6 +16,7 @@ public class DatagenEntrypoint implements DataGeneratorEntrypoint {
         pack.addProvider(HolidayServerBlockTagProvider::new);
         pack.addProvider(HolidayServerPaintingVariantProvider::new);
         pack.addProvider(HolidayServerPaintingVariantTagProvider::new);
+        pack.addProvider(HolidayServerRecipeProvider::new);
     }
 
     @Override
