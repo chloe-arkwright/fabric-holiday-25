@@ -4,8 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.serialization.Codec;
 import holiday.pond.SpeedyHopperAccess;
-import net.minecraft.block.Blocks;
-import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
@@ -39,7 +37,7 @@ public class HopperBlockEntityMixin implements SpeedyHopperAccess {
             method = "serverTick",
             at = @At("HEAD")
     )
-    private static void applyHopperMiteEffects(World world, BlockPos pos, BlockState state, HopperBlockEntity blockEntity, CallbackInfo ci) {
+    private static void tickHoppers(World world, BlockPos pos, BlockState state, HopperBlockEntity blockEntity, CallbackInfo ci) {
         HopperMiteItem.applyEffectsTo(world, pos, blockEntity);
         if (((SpeedyHopperAccess) blockEntity).fabricHoliday$isSpeedy()
             && world.getRandom().nextBetween(0, 100) == 0
