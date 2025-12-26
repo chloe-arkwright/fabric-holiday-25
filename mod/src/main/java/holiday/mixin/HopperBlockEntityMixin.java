@@ -1,5 +1,12 @@
 package holiday.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,7 +24,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 @Mixin(HopperBlockEntity.class)
-public class HopperBlockEntityMixin {
+public abstract class HopperBlockEntityMixin {
     @Inject(
             method = "serverTick",
             at = @At("HEAD")
@@ -58,4 +65,28 @@ public class HopperBlockEntityMixin {
             ci.setReturnValue(stack);
         }
     }
+
+    @Inject(method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z", at = @At("HEAD"))
+    private static void splitOverstackedItems(Inventory inventory, ItemEntity _itemEntity, CallbackInfoReturnable<Boolean> cir, @Local(argsOnly = true) LocalRef<ItemEntity> itemEntityLocalRef, @Share("split") LocalBooleanRef split, @Share("original") LocalRef<ItemEntity> original) {
+        ItemEntity itemEntity = itemEntityLocalRef.get();
+        original.set(itemEntity);
+        ItemStack stack = itemEntity.getStack();
+        int maxCount = stack.getMaxCount();
+        int count = stack.getCount();
+        if (count > maxCount) {
+            ItemStack stack1 = stack.split(maxCount);
+            ItemEntity fakeItemEntity = new ItemEntity(EntityType.ITEM, itemEntity.getEntityWorld());
+            fakeItemEntity.setStack(stack1);
+            itemEntityLocalRef.set(fakeItemEntity);
+            split.set(true);
+        }
+    }
+
+    @Inject(method = "extract(Lnet/minecraft/inventory/Inventory;Lnet/minecraft/entity/ItemEntity;)Z", at = @At("RETURN"))
+    private static void mergeThemBackTogetherIfTakingFails(Inventory inventory, ItemEntity _itemEntity, CallbackInfoReturnable<Boolean> cir, @Share("split") LocalBooleanRef split, @Share("original") LocalRef<ItemEntity> original) {
+        if (split.get() && !_itemEntity.getStack().isEmpty()) {
+            original.get().getStack().setCount(original.get().getStack().getCount() + _itemEntity.getStack().getCount());
+        }
+    }
+
 }
