@@ -17,7 +17,7 @@ public class EndPortalBlockMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;canUsePortals(Z)Z")
     )
     public boolean disableEndPortals(Entity instance, boolean allowVehicles, Operation<Boolean> original) {
-        if (instance.getEntityWorld() instanceof ServerWorld serverWorld && serverWorld.getGameRules().getValue(CommonEntrypoint.EPORTAL_GAMERULE)) return false;
+        if (instance.getEntityWorld() instanceof ServerWorld serverWorld && !serverWorld.getGameRules().getValue(CommonEntrypoint.EPORTAL_GAMERULE)) return false;
         else return original.call(instance, allowVehicles);
     }
 }
