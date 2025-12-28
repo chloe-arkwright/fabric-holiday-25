@@ -23,7 +23,8 @@
     "SingleStackStorageMixin",
     "SlipperyMixin",
     "WhitelistCommandMixin",
-    "WitherEntityMixin"
+    "WitherEntityMixin",
+    "squared.WitherEntityMixinSquared"
   ],
   "client": [
     "ClientPlayerEntityMixin",
