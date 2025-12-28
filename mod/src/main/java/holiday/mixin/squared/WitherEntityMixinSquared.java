@@ -1,7 +1,6 @@
 package holiday.mixin.squared;
 
 import com.bawnorton.mixinsquared.TargetHandler;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import holiday.idkwheretoputthis.WitherEntityExtension;
@@ -30,8 +29,7 @@ public abstract class WitherEntityMixinSquared extends HostileEntity {
     @SuppressWarnings("all")
     @TargetHandler(
         mixin = "dev.louis.chainstylewither.mixin.WitherBossMixin",
-        name = "customServerAiStep(Lnet/minecraft/server/world/ServerWorld;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V",
-        prefix = "handler"
+        name = "customServerAiStep"
     )
     @WrapMethod(
         method = "@MixinSquared:Handler",
@@ -47,11 +45,12 @@ public abstract class WitherEntityMixinSquared extends HostileEntity {
     @SuppressWarnings("all")
     @TargetHandler(
         mixin = "dev.louis.chainstylewither.mixin.WitherBossMixin",
-        name = "updatePostDeath"
+        //name = "updatePostDeath"
+        name = "method_6108"
     )
     @WrapMethod(
         method = "@MixinSquared:Handler",
-        remap = false
+        remap = true
     )
     private void wrapUpdatePostDeath(Operation<Void> original) {
         if (((WitherEntityExtension)(Object)this).fabric_holiday_25$isInOverWorld()) {
