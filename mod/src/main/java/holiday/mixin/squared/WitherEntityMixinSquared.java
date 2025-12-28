@@ -30,7 +30,8 @@ public abstract class WitherEntityMixinSquared extends HostileEntity {
     @SuppressWarnings("all")
     @TargetHandler(
         mixin = "dev.louis.chainstylewither.mixin.WitherBossMixin",
-        name = "customServerAiStep"
+        name = "customServerAiStep(Lnet/minecraft/server/world/ServerWorld;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V",
+        prefix = "handler"
     )
     @WrapMethod(
         method = "@MixinSquared:Handler"

@@ -126,6 +126,7 @@ public abstract class WitherEntityMixin extends HostileEntity implements WitherE
         return original.call(instance);
     }
 
+    // Conflicts with the WitherChainStyle mod, but seems to be fine
     @Override
     public void onDeath(DamageSource damageSource) {
         if (fabric_holiday_25$isInOverWorld()) {
