@@ -17,6 +17,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "LootContextTypesAccessor",
+    "PointedDripstoneBlockMixin",
     "RedstoneTorchBlockMixin",
     "ServerPlayNetworkHandlerMixin",
     "SingleStackStorageMixin",
