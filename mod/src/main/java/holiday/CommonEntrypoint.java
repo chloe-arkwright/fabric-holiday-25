@@ -58,7 +58,7 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CommonEntrypoint implements ModInitializer {
-    private static final String MOD_ID = "holiday-server-mod";
+    public static final String MOD_ID = "holiday-server-mod";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final String CURRENT_VERSION = FabricLoader.getInstance()
