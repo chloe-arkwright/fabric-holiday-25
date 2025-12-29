@@ -26,13 +26,15 @@
     "SingleStackStorageMixin",
     "SlipperyMixin",
     "WhitelistCommandMixin",
-    "WitherEntityMixin"
+    "WitherEntityMixin",
+    "squared.WitherEntityMixinSquared"
   ],
   "client": [
     "ClientPlayerEntityMixin",
     "GameMenuScreenAccessor",
     "HeldItemRendererMixin",
     "MinecraftClientMixin",
+    "WitherEntityModelMixin",
     "WitherEntityRendererMixin"
   ],
   "injectors": {
