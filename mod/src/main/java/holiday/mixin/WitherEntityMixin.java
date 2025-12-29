@@ -7,6 +7,7 @@ import holiday.idkwheretoputthis.WitherEntityExtension;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -122,6 +124,18 @@ public abstract class WitherEntityMixin extends HostileEntity implements WitherE
             return 0;
         }
         return original.call(instance);
+    }
+    
+    @WrapOperation(
+        method = "onStartedTrackingBy",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/entity/boss/ServerBossBar;addPlayer(Lnet/minecraft/server/network/ServerPlayerEntity;)V")
+    )
+    private void wrapAddPlayerToBossBar(ServerBossBar instance, ServerPlayerEntity player, Operation<Void> original) {
+        if (!fabric_holiday_25$isInOverWorld()) {
+            original.call(instance, player);
+        }
     }
 
     @Override
