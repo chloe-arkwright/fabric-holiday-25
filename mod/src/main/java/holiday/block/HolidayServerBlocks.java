@@ -1,7 +1,8 @@
 package holiday.block;
 
 import holiday.CommonEntrypoint;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -38,6 +39,12 @@ public final class HolidayServerBlocks {
         .nonOpaque()
         .mapColor(MapColor.GOLD)));
 
+    public static final Block CHUNK_LOADER = register("chunk_loader", settings -> new ChunkLoaderBlock(settings
+        .requiresTool()
+        .strength(50.0F, 1200.0F)
+        .mapColor(MapColor.PURPLE)
+    ));
+
     private HolidayServerBlocks() {
     }
 
@@ -45,6 +52,7 @@ public final class HolidayServerBlocks {
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("redstone_sand"), RedstoneSandBlock.CODEC);
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("tiny_potato"), TinyPotatoBlock.CODEC);
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("ender_paralyzer"), EnderParalyzerBlock.CODEC);
+        Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("chunk_loader"), ChunkLoaderBlock.CODEC);
     }
 
     public static Block register(String path, Function<Block.Settings, Block> factory) {

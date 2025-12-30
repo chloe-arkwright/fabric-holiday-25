@@ -19,6 +19,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.Unit;
 
 import java.util.function.Function;
@@ -70,6 +71,11 @@ public final class HolidayServerItems {
         ))
     );
 
+    public static final Item CHUNK_LOADER = register("chunk_loader", settings -> new BlockItem(HolidayServerBlocks.CHUNK_LOADER,settings
+        .rarity(Rarity.RARE)
+        .useBlockPrefixedTranslationKey())
+    );
+
     public static Item register(String id, Item.Settings settings) {
         return register(keyOf(id), Item::new, settings);
     }
@@ -105,7 +111,7 @@ public final class HolidayServerItems {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register(entries -> {
             entries.addAfter(Items.HOPPER, GOLDEN_HOPPER, HOPPER_MITE);
-            entries.addAfter(Items.REDSTONE_BLOCK, REDSTONE_SAND, TELE_INHIBITOR);
+            entries.addAfter(Items.REDSTONE_BLOCK, REDSTONE_SAND, TELE_INHIBITOR, CHUNK_LOADER);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(entries -> {

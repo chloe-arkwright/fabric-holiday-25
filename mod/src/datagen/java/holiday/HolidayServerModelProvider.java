@@ -3,6 +3,7 @@ package holiday;
 import holiday.block.HolidayServerBlocks;
 import holiday.component.HolidayServerDataComponentTypes;
 import holiday.item.HolidayServerItems;
+import holiday.state.HolidayServerProperties;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -25,6 +26,7 @@ public class HolidayServerModelProvider extends FabricModelProvider {
         generator.registerNorthDefaultHorizontalRotatable(HolidayServerBlocks.TINY_POTATO);
         this.registerHopper(generator, HolidayServerBlocks.GOLDEN_HOPPER);
         this.registerPreModeled(generator, HolidayServerBlocks.TELE_INHIBITOR);
+        this.registerActivatable(generator, HolidayServerBlocks.CHUNK_LOADER);
     }
 
     @Override
@@ -68,5 +70,18 @@ public class HolidayServerModelProvider extends FabricModelProvider {
     private void registerPreModeled(BlockStateModelGenerator generator, Block toRegister) {
         generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(toRegister, new WeightedVariant(Pool.of(new ModelVariant(ModelIds.getBlockModelId(toRegister))))));
         generator.registerItemModel(toRegister.asItem(), ModelIds.getBlockModelId(toRegister));
+    }
+
+    private void registerActivatable(BlockStateModelGenerator generator, Block block) {
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(ModelIds.getBlockModelId(block));
+        WeightedVariant weightedVariant2 = BlockStateModelGenerator.createWeightedVariant(ModelIds.getBlockSubModelId(block, "_on"));
+        generator.blockStateCollector
+            .accept(
+                VariantsBlockModelDefinitionCreator.of(block)
+                    .with(
+                        BlockStateVariantMap.models(HolidayServerProperties.ACTIVATED)
+                            .register(true, weightedVariant2)
+                            .register(false, weightedVariant)
+                    ));
     }
 }
