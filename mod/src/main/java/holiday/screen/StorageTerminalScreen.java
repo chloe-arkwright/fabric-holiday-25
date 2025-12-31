@@ -62,6 +62,14 @@ public class StorageTerminalScreen extends HandledScreen<StorageTerminalScreenHa
     }
 
     @Override
+    public void resize(int width, int height) {
+        String search = this.searchBox.getText();
+
+        super.resize(width, height);
+        this.searchBox.setText(search);
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float tickDelta) {
         super.render(context, mouseX, mouseY, tickDelta);
 
