@@ -107,7 +107,7 @@ public class StorageTerminalScreenHandler extends ScreenHandler {
 
         Storage<ItemVariant> storage = this.getStorage();
 
-        if (storage != this.cachedStorage) {
+        if ((storage == this.disconnectedStorage) != (this.cachedStorage == this.disconnectedStorage)) {
             this.refresh();
         } else if ((inventorySlot || actionType == SlotActionType.QUICK_MOVE) && actionType != SlotActionType.CLONE) {
             if (slotIndex < 0 || slotIndex >= this.slots.size()) {
