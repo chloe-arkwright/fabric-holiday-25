@@ -1,7 +1,5 @@
 package holiday;
 
-import java.util.concurrent.CompletableFuture;
-
 import holiday.block.HolidayServerBlocks;
 import holiday.tag.HolidayServerBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -9,6 +7,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+
+import java.util.concurrent.CompletableFuture;
 
 public class HolidayServerBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     public HolidayServerBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {
@@ -33,8 +33,7 @@ public class HolidayServerBlockTagProvider extends FabricTagProvider.BlockTagPro
                 .add(HolidayServerBlocks.REDSTONE_SAND);
         this.valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(HolidayServerBlocks.GOLDEN_HOPPER)
-                .add(HolidayServerBlocks.TELE_INHIBITOR);
-
-
+                .add(HolidayServerBlocks.TELE_INHIBITOR)
+                .add(HolidayServerBlocks.CHUNK_LOADER);
     }
 }

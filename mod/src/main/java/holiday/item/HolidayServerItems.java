@@ -19,6 +19,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.Unit;
 
 import java.util.function.Function;
@@ -74,6 +75,11 @@ public final class HolidayServerItems {
             9600,
             2
         ))
+    );
+
+    public static final Item CHUNK_LOADER = register("chunk_loader", settings -> new BlockItem(HolidayServerBlocks.CHUNK_LOADER,settings
+        .rarity(Rarity.RARE)
+        .useBlockPrefixedTranslationKey())
     );
 
     public static Item register(String id, Item.Settings settings) {
