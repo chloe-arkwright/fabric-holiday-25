@@ -97,7 +97,7 @@ public final class HolidayServerItems {
 
     public static void register() {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(entries -> {
-            entries.addAfter(Items.TURTLE_HELMET, ABSOLUTELY_SAFE_ARMOR);
+            entries.addAfter(Items.TURTLE_HELMET, ABSOLUTELY_SAFE_ARMOR, WITHER_CROWN);
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> {

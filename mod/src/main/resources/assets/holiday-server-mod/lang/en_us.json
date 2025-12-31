@@ -59,5 +59,6 @@
   "gamerule.holiday-server-mod.endportal_enabled": "End portal enabled",
   "item.holiday-server-mod.echo_dust": "Echo Dust",
   "item.holiday-server-mod.baritone": "Baritone",
-  "subtitles.baritone": "Baritone plays"
+  "subtitles.baritone": "Baritone plays",
+  "item.holiday-server-mod.wither_crown": "Wither Crown"
 }

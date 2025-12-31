@@ -12,7 +12,8 @@ public record Config(
     String discordWebhookUrl,
     boolean shouldTatherTargetPlayers,
     boolean shouldSilenceTather,
-    boolean shouldHideTatherBossBar
+    boolean shouldHideTatherBossBar,
+    boolean shouldWitherOnlyAttackCrown
 ) {
     public static Config loadConfig() throws IOException {
         Path path = FabricLoader.getInstance().getConfigDir().resolve("holiday_server.properties");
@@ -26,7 +27,8 @@ public record Config(
             get(properties, "discordWebhookUrl", ""),
             get(properties, "shouldTatherTargetPlayers", false),
             get(properties, "shouldSilenceTather", true),
-            get(properties, "shouldHideTatherBossBar", true)
+            get(properties, "shouldHideTatherBossBar", true),
+            get(properties, "shouldWitherOnlyAttackCrown", true)
         );
 
         try (OutputStream os = Files.newOutputStream(path)) {
