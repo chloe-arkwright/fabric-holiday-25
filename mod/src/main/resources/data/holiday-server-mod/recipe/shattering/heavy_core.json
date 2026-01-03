@@ -1,0 +1,7 @@
+{
+  "type": "anvilshattering:anvil_shattering",
+  "ingredient": "minecraft:mace",
+  "result": {
+    "id": "minecraft:heavy_core"
+  }
+}

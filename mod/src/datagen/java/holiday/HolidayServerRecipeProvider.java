@@ -9,6 +9,7 @@ import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -42,6 +43,16 @@ public class HolidayServerRecipeProvider extends FabricRecipeProvider {
                         .input(Items.REDSTONE)
                         .input(Items.SAND)
                         .criterion("has_redstone", this.conditionsFromItem(Items.REDSTONE))
+                        .offerTo(this.exporter);
+
+                this.createShaped(RecipeCategory.DECORATIONS, HolidayServerItems.STORAGE_TERMINAL)
+                        .input('I', Items.IRON_INGOT)
+                        .input('C', Items.CHEST)
+                        .input('H', Items.HEAVY_CORE)
+                        .pattern("ICI")
+                        .pattern("IHI")
+                        .pattern("III")
+                        .criterion("has_heavy_core", this.conditionsFromItem(Items.HEAVY_CORE))
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.MISC, HolidayServerItems.TATER_PATTERN_ITEM)
@@ -116,6 +127,24 @@ public class HolidayServerRecipeProvider extends FabricRecipeProvider {
                     .pattern("gnn")
                     .pattern("ggg")
                     .criterion("has_gold_ingot", this.conditionsFromItem(Items.GOLD_INGOT))
+                    .offerTo(exporter);
+
+                this.createShaped(RecipeCategory.MISC, HolidayServerItems.CHUNK_LOADER)
+                    .pattern("III")
+                    .pattern("INI")
+                    .pattern("III")
+                    .input('I', Items.IRON_INGOT)
+                    .input('N', Items.NETHER_STAR)
+                    .criterion("has_nether_star", this.conditionsFromItem(Items.NETHER_STAR))
+                    .offerTo(exporter);
+
+                this.createShaped(RecipeCategory.MISC, HolidayServerItems.ATTRIBUTE_TABLE)
+                    .input('C', Items.COPPER_INGOT)
+                    .input('P', ItemTags.PLANKS)
+                    .pattern("CC")
+                    .pattern("PP")
+                    .pattern("PP")
+                    .criterion("has_copper_ingot", this.conditionsFromItem(Items.COPPER_INGOT))
                     .offerTo(exporter);
 
                 this.createShaped(RecipeCategory.MISC, HolidayServerItems.WITHER_CROWN)

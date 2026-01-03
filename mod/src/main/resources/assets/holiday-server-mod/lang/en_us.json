@@ -39,6 +39,11 @@
   "block.holiday-server-mod.banner.tater.yellow": "Yellow Tater",
   "item.holiday-server-mod.tater_banner_pattern": "Tater Banner Pattern",
   "block.holiday-server-mod.redstone_sand": "Redstone Sand",
+  "block.holiday-server-mod.storage_terminal": "Storage Terminal",
+  "text.holiday-server-mod.storage_terminal.title": "Terminal",
+  "text.holiday-server-mod.storage_terminal.no_storage_connected": "No storage connected!",
+  "item.holiday-server-mod.unsafe_memory": "Unsafe Memory",
+  "item.holiday-server-mod.unsafe_memory.tooltip": "Value: 0x%s",
   "block.holiday-server-mod.tiny_potato": "Tiny Potato",
   "block.holiday-server-mod.tele_inhibitor": "Teleinhibitor",
   "block.holiday-server-mod.golden_hopper": "Golden Hopper",
@@ -60,5 +65,7 @@
   "item.holiday-server-mod.echo_dust": "Echo Dust",
   "item.holiday-server-mod.baritone": "Baritone",
   "subtitles.baritone": "Baritone plays",
+  "block.holiday-server-mod.chunk_loader": "Chunk Loader",
+  "block.holiday-server-mod.attribute_table": "Attribute Table",
   "item.holiday-server-mod.wither_crown": "Wither Crown"
 }

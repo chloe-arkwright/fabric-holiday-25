@@ -22,6 +22,7 @@
     "LootContextTypesAccessor",
     "PointedDripstoneBlockMixin",
     "RedstoneTorchBlockMixin",
+    "ScreenHandlerPropertyUpdateS2CPacketMixin",
     "ServerPlayNetworkHandlerMixin",
     "ShulkerEntityMixin",
     "SingleStackStorageMixin",
@@ -33,6 +34,7 @@
   "client": [
     "ClientPlayerEntityMixin",
     "GameMenuScreenAccessor",
+    "HandledScreenMixin",
     "HeldItemRendererMixin",
     "MinecraftClientMixin",
     "WitherEntityModelMixin",

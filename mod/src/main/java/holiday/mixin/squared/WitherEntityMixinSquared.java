@@ -6,13 +6,14 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import holiday.idkwheretoputthis.WitherEntityExtension;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Dynamic;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Pseudo;
+import net.minecraft.world.dimension.DimensionTypes;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
@@ -20,6 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class WitherEntityMixinSquared extends HostileEntity {
     private WitherEntityMixinSquared(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Shadow private boolean dropLootSkip;
+
+    public boolean fabric_holiday_25$isInOverWorldInMixinSquared() {
+        return this.getEntityWorld().getDimensionEntry().matchesKey(DimensionTypes.OVERWORLD);
     }
 
     /*
@@ -50,5 +57,38 @@ public abstract class WitherEntityMixinSquared extends HostileEntity {
     @Overwrite
     protected void updatePostDeath() {
         super.updatePostDeath();
+    }
+
+
+    @TargetHandler(
+        mixin = "dev.louis.chainstylewither.mixin.WitherBossMixin",
+        name = "drop"
+    )
+    @Inject(
+        method = "@MixinSquared:Handler",
+        at = @At("HEAD"),
+        remap = true,
+        require = 0
+    )
+    public void makeDropStateInOverworld(ServerWorld world, DamageSource damageSource, CallbackInfo info) {
+        if (!fabric_holiday_25$isInOverWorldInMixinSquared()) {
+            dropLootSkip = false;
+        }
+    }
+
+    @TargetHandler(
+        mixin = "dev.louis.chainstylewither.mixin.WitherBossMixin",
+        name = "method_16080"
+    )
+    @Inject(
+        method = "@MixinSquared:Handler",
+        at = @At("HEAD"),
+        remap = true,
+        require = 0
+    )
+    public void makeDropStateInOverworld2(ServerWorld world, DamageSource damageSource, CallbackInfo info) {
+        if (!fabric_holiday_25$isInOverWorldInMixinSquared()) {
+            dropLootSkip = false;
+        }
     }
 }

@@ -1,7 +1,8 @@
 package holiday.block;
 
 import holiday.CommonEntrypoint;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,6 +19,13 @@ public final class HolidayServerBlocks {
             .instrument(NoteBlockInstrument.SNARE)
             .strength(0.5f)
             .sounds(BlockSoundGroup.SAND)));
+
+    public static final Block STORAGE_TERMINAL = register("storage_terminal", settings -> new StorageTerminalBlock(settings
+            .mapColor(MapColor.IRON_GRAY)
+            .instrument(NoteBlockInstrument.SNARE)
+            .strength(10)
+            .resistance(1200)
+            .sounds(BlockSoundGroup.HEAVY_CORE)));
 
     public static final Block TINY_POTATO = register("tiny_potato", settings -> new TinyPotatoBlock(settings
             .mapColor(MapColor.RAW_IRON_PINK)
@@ -38,13 +46,29 @@ public final class HolidayServerBlocks {
         .nonOpaque()
         .mapColor(MapColor.GOLD)));
 
+    public static final Block CHUNK_LOADER = register("chunk_loader", settings -> new ChunkLoaderBlock(settings
+        .requiresTool()
+        .strength(50.0F, 1200.0F)
+        .mapColor(MapColor.PURPLE)
+    ));
+
+    public static final Block ATTRIBUTE_TABLE = register("attribute_table", settings -> new AttributeTableBlock(settings
+        .mapColor(MapColor.OAK_TAN)
+        .instrument(NoteBlockInstrument.BASS)
+        .strength(2.5F)
+        .sounds(BlockSoundGroup.WOOD)
+        .burnable()
+    ));
+
     private HolidayServerBlocks() {
     }
 
     public static void register() {
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("redstone_sand"), RedstoneSandBlock.CODEC);
+        Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("storage_terminal"), StorageTerminalBlock.CODEC);
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("tiny_potato"), TinyPotatoBlock.CODEC);
         Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("ender_paralyzer"), EnderParalyzerBlock.CODEC);
+        Registry.register(Registries.BLOCK_TYPE, CommonEntrypoint.identifier("chunk_loader"), ChunkLoaderBlock.CODEC);
     }
 
     public static Block register(String path, Function<Block.Settings, Block> factory) {
