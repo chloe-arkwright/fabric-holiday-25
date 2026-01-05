@@ -13,6 +13,7 @@ import net.minecraft.block.entity.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -87,33 +88,19 @@ public class GoldenHopperBlockEntity extends HopperBlockEntity {
 
     private static boolean extractFullStack(World world, BlockPos pos, GoldenHopperBlockEntity hopper) {
         BlockPos abovePos = pos.up();
-
         boolean moved = false;
-        Storage<@NotNull ItemVariant> sourceStorage = ItemStorage.SIDED.find(world, abovePos, Direction.DOWN);
 
-        if (sourceStorage != null) {
-            try (Transaction tx = Transaction.openOuter()) {
-                for (StorageView<@NotNull ItemVariant> view : sourceStorage) {
-                    if (view.isResourceBlank()) continue;
-
-                    long available = view.getAmount();
-                    ItemVariant variant = view.getResource();
-
-                    long inserted = insertIntoHopperFAPI(hopper, variant, available);
-                    if (inserted > 0) {
-                        view.extract(variant, inserted, tx);
-                        moved = true;
-                    }
-                }
-                tx.commit();
-            }
-        }
-
+        // Try vanilla inventory first (respects SidedInventory.canExtract and all mod restrictions)
         Inventory inv = getVanillaInventory(world, abovePos, Direction.DOWN);
         if (inv != null) {
             for (int slot : HopperBlockEntityAccessor.getAvailableSlots(inv, Direction.DOWN)) {
                 ItemStack stack = inv.getStack(slot);
                 if (stack.isEmpty()) continue;
+
+                // This respects canTakeItemFromContainer which checks canExtract for SidedInventory
+                if (!canTakeItemFromContainer(inv, stack, slot, Direction.DOWN)) {
+                    continue;
+                }
 
                 ItemStack pulled = inv.removeStack(slot, stack.getCount());
                 ItemStack rem = transfer(inv, hopper, pulled, null);
@@ -123,17 +110,63 @@ public class GoldenHopperBlockEntity extends HopperBlockEntity {
                     return true;
                 }
             }
-        } else {
-            for (ItemEntity itemEntity : getInputItemEntities(world, hopper)) {
-                ItemStack stack = itemEntity.getStack();
-                long inserted = insertIntoHopperFAPI(hopper, ItemVariant.of(stack), stack.getCount());
-                stack.decrement((int) inserted);
-                if (stack.isEmpty()) itemEntity.discard();
-                return inserted > 0;
+            return moved;
+        }
+
+        // Only use Fabric API as fallback for non-vanilla containers
+        Storage<@NotNull ItemVariant> sourceStorage = ItemStorage.SIDED.find(world, abovePos, Direction.DOWN);
+        if (sourceStorage != null) {
+            for (StorageView<@NotNull ItemVariant> view : sourceStorage) {
+                if (view.isResourceBlank()) continue;
+
+                ItemVariant variant = view.getResource();
+                long stackMax = variant.toStack().getMaxCount();
+
+                long canFit = getCanFitAmount(hopper, variant, stackMax);
+                if (canFit > 0) {
+                    try (Transaction tx = Transaction.openOuter()) {
+                        long extracted = view.extract(variant, canFit, tx);
+                        if (extracted > 0) {
+                            long inserted = insertIntoHopperFAPI(hopper, variant, extracted);
+                            if (inserted == extracted) {
+                                tx.commit();
+                                return true;
+                            }
+                        }
+                    }
+                }
             }
+            return moved;
+        }
+
+        // Item entities last (only if no inventory found)
+        for (ItemEntity itemEntity : getInputItemEntities(world, hopper)) {
+            ItemStack stack = itemEntity.getStack();
+            long inserted = insertIntoHopperFAPI(hopper, ItemVariant.of(stack), stack.getCount());
+            stack.decrement((int) inserted);
+            if (stack.isEmpty()) itemEntity.discard();
+            return inserted > 0;
         }
 
         return moved;
+    }
+
+    // Add this helper method if it doesn't exist
+    private static boolean canTakeItemFromContainer(Inventory container, ItemStack itemStack, int slot, Direction direction) {
+        return !(container instanceof SidedInventory) || ((SidedInventory)container).canExtract(slot, itemStack, direction);
+    }
+
+    private static long getCanFitAmount(GoldenHopperBlockEntity hopper, ItemVariant variant, long requested) {
+        long canFit = 0;
+        for (int i = 0; i < hopper.size(); i++) {
+            ItemStack slot = hopper.getStack(i);
+            if (slot.isEmpty()) {
+                canFit += variant.toStack().getMaxCount();
+            } else if (ItemVariant.of(slot).equals(variant)) {
+                canFit += slot.getMaxCount() - slot.getCount();
+            }
+        }
+        return Math.min(canFit, requested);
     }
 
     private static long insertIntoHopperFAPI(GoldenHopperBlockEntity hopper, ItemVariant variant, long amount) {
