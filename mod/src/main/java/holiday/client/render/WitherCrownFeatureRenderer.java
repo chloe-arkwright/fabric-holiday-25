@@ -1,5 +1,6 @@
 package holiday.client.render;
 
+import holiday.ClientEntrypoint;
 import holiday.CommonEntrypoint;
 import holiday.client.render.model.WitherCrownEntityModel;
 import holiday.idkwheretoputthis.PlayerEntityRenderStateExtension;
@@ -8,7 +9,6 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
@@ -22,7 +22,7 @@ public class WitherCrownFeatureRenderer extends FeatureRenderer<PlayerEntityRend
 
     public WitherCrownFeatureRenderer(FeatureRendererContext<PlayerEntityRenderState, PlayerEntityModel> context, LoadedEntityModels entityModels) {
         super(context);
-        this.model = new WitherCrownEntityModel(entityModels.getModelPart(EntityModelLayers.PLAYER_HEAD));
+        this.model = new WitherCrownEntityModel(entityModels.getModelPart(ClientEntrypoint.WITHER_CROWN_LAYER));
     }
 
     @Override

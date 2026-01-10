@@ -12,6 +12,7 @@
     "EndermanMixin",
     "EndPortalBlockMixin",
     "EntityMixin",
+    "EntityModelsMixin",
     "HopperBlockEntityAccessor",
     "HopperBlockEntityMixin",
     "HostileEntityMixin",

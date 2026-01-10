@@ -5,7 +5,9 @@ import holiday.block.HolidayServerBlocks;
 import holiday.client.render.HeartEntityModel;
 import holiday.client.render.HeartEntityRenderer;
 import holiday.client.render.WitherCrownFeatureRenderer;
+import holiday.client.render.model.WitherCrownEntityModel;
 import holiday.entity.HolidayServerEntities;
+import holiday.event.GetModelsCallback;
 import holiday.item.HolidayServerItems;
 import holiday.mixin.GameMenuScreenAccessor;
 import holiday.render.HolidayServerNumericProperties;
@@ -86,6 +88,10 @@ public class ClientEntrypoint implements ClientModInitializer {
             if (entityRenderer instanceof PlayerEntityRenderer<?> playerEntityRenderer) {
                 registrationHelper.register(new WitherCrownFeatureRenderer(playerEntityRenderer, context.getEntityModels()));
             }
+        });
+
+        GetModelsCallback.EVENT.register((builder) -> {
+            builder.put(WITHER_CROWN_LAYER, WitherCrownEntityModel.getTexturedModelData());
         });
     }
 
