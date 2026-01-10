@@ -22,6 +22,8 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "LootContextTypesAccessor",
+    "PlayerEntityRendererMixin",
+    "PlayerEntityRenderStateMixin",
     "PointedDripstoneBlockMixin",
     "RedstoneTorchBlockMixin",
     "ScreenHandlerPropertyUpdateS2CPacketMixin",
