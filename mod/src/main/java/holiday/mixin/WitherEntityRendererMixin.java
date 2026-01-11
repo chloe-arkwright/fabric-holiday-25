@@ -66,7 +66,7 @@ public abstract class WitherEntityRendererMixin extends MobEntityRenderer<Wither
     private float modifyScale(float scale, WitherEntityRenderState witherEntityRenderState) {
         WitherEntityRenderStateExtension stateExtension = (WitherEntityRenderStateExtension) witherEntityRenderState;
         if (stateExtension.fabric_holiday_25$isInOverworld()) {
-            return 1.0f;
+            return 1.5f;
         }
         return scale;
     }
