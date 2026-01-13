@@ -31,8 +31,14 @@ file = "mods/anvil-too-expensive-fix.pw.toml"
 metafile = true
 
 [[files]]
+file = "mods/anvilshattering-1.0.0.jar"
+
+[[files]]
 file = "mods/badpackets.pw.toml"
 metafile = true
+
+[[files]]
+file = "mods/blocks-of-monster-stuff-1.0.0-mc1.20.3-1.20.4.jar"
 
 [[files]]
 file = "mods/breakerplacer.pw.toml"
