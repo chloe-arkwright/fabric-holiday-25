@@ -34,6 +34,10 @@ metafile = true
 file = "mods/anvilshattering-1.0.0.jar"
 
 [[files]]
+file = "mods/arke.pw.toml"
+metafile = true
+
+[[files]]
 file = "mods/badpackets.pw.toml"
 metafile = true
 
@@ -62,10 +66,6 @@ metafile = true
 
 [[files]]
 file = "mods/eiv-fabric-5.2.0+1.21.11.jar"
-
-[[files]]
-file = "mods/ellies-storage-options.pw.toml"
-metafile = true
 
 [[files]]
 file = "mods/extended-drawers-extensions.pw.toml"
